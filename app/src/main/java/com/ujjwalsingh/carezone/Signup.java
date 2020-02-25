@@ -33,19 +33,19 @@ public class Signup extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
         fullname =findViewById(R.id.fullname);
         email =findViewById(R.id.email);
         password =findViewById(R.id.password);
-        button_register = findViewById(R.id.button_register);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        button_register = findViewById(R.id.signup);
+
+
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (val) {
                     String u_username = fullname.getText().toString();
                     String u_email = email.getText().toString();
                     String u_password = password.getText().toString();
@@ -55,9 +55,25 @@ public class Signup extends AppCompatActivity {
                     }  else {
                         register(u_username, u_email, u_password);
                     }
-                }else
-                    button_register.setEnabled(false);
-            }
+                    /*if(u_email.isEmpty()){
+                        email.setError("Please Enter Email Id");
+                        email.requestFocus();
+                    }
+                    else if (u_password.isEmpty()){
+                        password.setError("Please enter your password");
+                        password.requestFocus();
+                    }
+                    else if(u_email.isEmpty() && u_password.isEmpty() && username.isEmpty()){
+                        Toast.makeText(Signup.this, "Fields are empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(!(u_email.isEmpty() && u_password.isEmpty() && username.isEmpty())){
+
+                    }*/
+                    
+
+                }
+                    //button_register.setEnabled(false);
+
         });
     }
 
@@ -66,10 +82,10 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                    assert firebaseUser != null;
-                    String userUId = firebaseUser.getUid();
-                    reference = FirebaseDatabase.getInstance().getReference("Users").child(userUId);
+                    //FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    //assert firebaseUser != null;
+                    //String userUId = firebaseUser.getUid();
+                    /*reference = FirebaseDatabase.getInstance().getReference("Users").child(userUId);
                     HashMap<String,String> hashMap = new HashMap<>();
                     hashMap.put("id",userUId);
                     hashMap.put("fullname",username);
@@ -87,7 +103,9 @@ public class Signup extends AppCompatActivity {
                                 finish();
                             }
                         }
-                    });
+                    });*/
+                    Toast.makeText(Signup.this,"Registered Successfully",Toast.LENGTH_SHORT).show();
+
                 }else{
                     Toast.makeText(Signup.this, "Unable to Register with this username and password", Toast.LENGTH_SHORT).show();
                 }
